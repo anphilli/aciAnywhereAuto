@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <title> ACI Anywhere Automation </title>
+
+    <head>
+        <meta Http-Equiv="Cache-Control" Content="no-cache">
+        <meta Http-Equiv="Pragma" Content="no-cache">
+        <meta Http-Equiv="Expires" Content="0">
+        <meta Http-Equiv="Pragma-directive: no-cache">
+        <meta Http-Equiv="Cache-directive: no-cache">
+        
+
+        <meta charset="UTF-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../static/aciauto.css">
+
+        
+    </head>
+
+<body>
+
+
+<div id="buttons">
+
+        <!--Add a Template to the MSC  -->
+        <h3> Add Template to MSC </h3>
+        <input type="submit" id="addTemplate" value = "Add MSC Template" >
+
+
+
+        <!-- -->
+        <h3> action 2 </h3>
+        <input type="submit" id="action2" value = "Action 2" >
+
+
+        <!--  -->
+        <h3> action 3 </h3>
+        <input type="submit" id="action3" value="Action 3" >
+
+
+
+        <!-- action 4 -->
+        <h3> action 4 </h3>
+        <input type="submit" id="action4" value = "Action 4" >
+
+
+
+        <!-- Clear Output -->
+        <h3> Clear Output </h3>
+        <input type="submit" id="clearOutput"  value = "Clear Output" >
+
+
+</div>
+
+
+    <p>
+        <h2> The JSON formatted message sent to the MSC described below </h2>
+    </p>
+    <br>
+
+<div id="jsonDiv">
+    
+    <!-- Div to display JSON format sent to MSC -->
+
+
+    
+</div>
+
+
+<script>
+    
+    // Button Actions below:
+    
+    $("#addTemplate").click(function() {
+        var actionPost =  '{ "action" : "template" }';
+        parsedAction = JSON.parse(actionPost);
+        var action_url = "http://127.0.0.1:8089/add_template";
+        actionAjax(parsedAction, action_url);
+    });
+    
+    $("#action2").click(function() {
+        var actionPost =  '{ "action" : "action2" }';
+        jsonActionPost = JSON.parse(actionPost);
+        var action_url = "http://127.0.0.1:8089/action2";
+        actionAjax(jsonActionPost,action_url);
+    });
+    $("#action3").click(function() {
+        var actionPost =  '{ "action" : "action3" }';
+        jsonActionPost = JSON.parse(actionPost);
+        var action_url = "http://127.0.0.1:8089/action3";
+        actionAjax(jsonActionPost, action_url);
+    });
+    $("#action4").click(function() {
+        var actionPost =  '{ "Host" : "action4" }';
+        jsonActionPost = JSON.parse(actionPost);
+        var action_url = "http://127.0.0.1:8089/action4";
+        actionAjax(jsonActionPost,action_url);
+    });
+
+    $(document).ready(function() {
+        $("#clearOutput").click(function(){
+            $('#jsonDiv').empty()
+        });
+    });
+    
+
+    function actionAjax(jsonActionPost, action_url) {
+
+        /* ajax call to flask webserver */
+        
+        $.ajax({
+            url: action_url,
+            type: 'post',
+            crossDomain: false,
+            dataType: 'json',
+            data: jsonActionPost,
+            success: function(results){
+                // Flask server return current state of video stream
+                $('#jsonDiv').append( '<br>' + results.message + '<br>') }
+
+        });
+
+    }
+
+
+</script>
+
+
+</body>
+</html>
