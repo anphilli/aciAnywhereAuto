@@ -26,26 +26,22 @@
 <div id="buttons">
 
         <!--Add a Template to the MSC  -->
-        <h3> Add Template to MSC </h3>
-        <input type="submit" id="addTemplate" value = "Add MSC Template" >
-
+        <h3> Get Tentant Data from MSC </h3>
+        <input type="submit" id="getTenants" value = "Get Tenant Data" >
 
 
         <!-- -->
-        <h3> action 2 </h3>
-        <input type="submit" id="action2" value = "Action 2" >
-
+        <h3> Add Tenant</h3>
+        <input type="submit" id="addTenant" value = "Add Tenant" >
 
         <!--  -->
-        <h3> action 3 </h3>
-        <input type="submit" id="action3" value="Action 3" >
-
+        <h3> Get Schemas </h3>
+        <input type="submit" id="getSchema" value="Get Schema" >
 
 
         <!-- action 4 -->
-        <h3> action 4 </h3>
-        <input type="submit" id="action4" value = "Action 4" >
-
+        <h3> Add Schema </h3>
+        <input type="submit" id="addSchema" value = "Add Schema" >
 
 
         <!-- Clear Output -->
@@ -55,17 +51,25 @@
 
 </div>
 
+<div id="header">
 
-    <p>
-        <h2> The JSON formatted message sent to the MSC described below </h2>
-    </p>
-    <br>
+    <h1> Multi Site Controller Automation Tool</h1>
+
+
+</div>
+
+<div id="infoDiv">
+
+    <!-- Div to display Generic Information about an action made through the web page -->
+    <h2> JSON Messages returned from MSC below: </h2>
+
+</div>
+
+
 
 <div id="jsonDiv">
-    
+
     <!-- Div to display JSON format sent to MSC -->
-
-
     
 </div>
 
@@ -74,29 +78,35 @@
     
     // Button Actions below:
     
-    $("#addTemplate").click(function() {
-        var actionPost =  '{ "action" : "template" }';
+    $("#getTenants").click(function() {
+        var actionPost =  '{ "action" : "gettenant" }';
         parsedAction = JSON.parse(actionPost);
-        var action_url = "http://127.0.0.1:8089/add_template";
+        var action_url = "http://127.0.0.1:8089/get_tenants";
+        clearDiv();
         actionAjax(parsedAction, action_url);
+
+
     });
     
-    $("#action2").click(function() {
-        var actionPost =  '{ "action" : "action2" }';
+    $("#addTenant").click(function() {
+        var actionPost =  '{ "action" : "addtenant" }';
         jsonActionPost = JSON.parse(actionPost);
-        var action_url = "http://127.0.0.1:8089/action2";
+        var action_url = "http://127.0.0.1:8089/add_tenant";
+        clearDiv()
         actionAjax(jsonActionPost,action_url);
     });
-    $("#action3").click(function() {
-        var actionPost =  '{ "action" : "action3" }';
+    $("#getSchema").click(function() {
+        var actionPost =  '{ "action" : "getSchema" }';
         jsonActionPost = JSON.parse(actionPost);
-        var action_url = "http://127.0.0.1:8089/action3";
+        var action_url = "http://127.0.0.1:8089/get_schema";
+        clearDiv()
         actionAjax(jsonActionPost, action_url);
     });
-    $("#action4").click(function() {
-        var actionPost =  '{ "Host" : "action4" }';
+    $("#addSchema").click(function() {
+        var actionPost =  '{ "action" : "addSchema" }';
         jsonActionPost = JSON.parse(actionPost);
-        var action_url = "http://127.0.0.1:8089/action4";
+        var action_url = "http://127.0.0.1:8089/add_schema";
+        clearDiv()
         actionAjax(jsonActionPost,action_url);
     });
 
@@ -105,7 +115,18 @@
             $('#jsonDiv').empty()
         });
     });
-    
+
+
+    function clearDiv() {
+
+        // Clear output div before each call for information
+        $(document).ready(function() {
+            $("#clearOutput").click(function(){
+                $('#jsonDiv').empty()
+            });
+        });
+
+    }
 
     function actionAjax(jsonActionPost, action_url) {
 
@@ -118,8 +139,15 @@
             dataType: 'json',
             data: jsonActionPost,
             success: function(results){
+
+                //var msc_json = JSON.stringify(JSON.parse(results.message), null, ' ');
                 // Flask server return current state of video stream
-                $('#jsonDiv').append( '<br>' + results.message + '<br>') }
+
+                //$('#jsonDiv').append(msc_json)
+                // }
+                var jsonOutput = document.createTextNode( JSON.stringify(JSON.parse(results.message),null, 2));
+                $('#jsonDiv').html('<h3>JSON payload extracted from reply message</h3>').append(jsonOutput);
+            }
 
         });
 

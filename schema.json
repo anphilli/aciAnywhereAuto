@@ -1,0 +1,357 @@
+{
+  "displayName": "API-Test",
+  "templates": [
+    {
+      "name": "Template1",
+      "displayName": "Template 1",
+      "tenantId": "5994caad1100005200a78489",
+      "anps": [
+        {
+          "name": "Tesla-Image-App",
+          "displayName": "Tesla-Image-App",
+          "epgs": [
+            {
+              "name": "Web-Tesla",
+              "displayName": "Web-Tesla",
+              "epgRef": "/templates/Template1/anps/Tesla-Image-App/epgs/Web-Tesla",
+              "contractRelationships": [
+                {
+                  "relationshipType": "consumer",
+                  "contractRef": "/templates/Template1/contracts/Tesla"
+                },
+                {
+                  "relationshipType": "provider",
+                  "contractRef": "/templates/Template1/contracts/Tesla"
+                }
+              ],
+              "subnets": [],
+              "uSegEpg": false,
+              "uSegAttrs": [],
+              "intraEpg": "unenforced",
+              "proxyArp": false,
+              "bdRef": "/templates/Template1/bds/Tesla"
+            },
+            {
+              "name": "NFS-Tesla",
+              "displayName": "NFS-Tesla",
+              "epgRef": "/templates/Template1/anps/Tesla-Image-App/epgs/NFS-Tesla",
+              "contractRelationships": [
+                {
+                  "relationshipType": "consumer",
+                  "contractRef": "/templates/Template1/contracts/Tesla"
+                },
+                {
+                  "relationshipType": "provider",
+                  "contractRef": "/templates/Template1/contracts/Tesla"
+                }
+              ],
+              "subnets": [],
+              "uSegEpg": false,
+              "uSegAttrs": [],
+              "intraEpg": "unenforced",
+              "proxyArp": false,
+              "bdRef": "/templates/Template1/bds/Tesla"
+            },
+            {
+              "name": "DB-Tesla",
+              "displayName": "DB-Tesla",
+              "epgRef": "/templates/Template1/anps/Tesla-Image-App/epgs/DB-Tesla",
+              "contractRelationships": [
+                {
+                  "relationshipType": "consumer",
+                  "contractRef": "/templates/Template1/contracts/Tesla"
+                },
+                {
+                  "relationshipType": "provider",
+                  "contractRef": "/templates/Template1/contracts/Tesla"
+                }
+              ],
+              "subnets": [],
+              "uSegEpg": false,
+              "uSegAttrs": [],
+              "intraEpg": "unenforced",
+              "proxyArp": false,
+              "bdRef": "/templates/Template1/bds/Tesla"
+            },
+            {
+              "name": "MSite-vMotion",
+              "displayName": "MSite-vMotion",
+              "epgRef": "/templates/Template1/anps/Tesla-Image-App/epgs/MSite-vMotion",
+              "contractRelationships": [],
+              "subnets": [
+                {
+                  "ip": "192.168.44.1/24",
+                  "scope": "private",
+                  "shared": false
+                }
+              ],
+              "uSegEpg": false,
+              "uSegAttrs": [],
+              "intraEpg": "unenforced",
+              "proxyArp": false,
+              "bdRef": "/templates/Template1/bds/Tesla"
+            }
+          ]
+        }
+      ],
+      "vrfs": [
+        {
+          "name": "Tesla",
+          "displayName": "Tesla-Vrf",
+          "vrfRef": "/templates/Template1/vrfs/Tesla"
+        }
+      ],
+      "bds": [
+        {
+          "name": "Tesla",
+          "displayName": "Tesla-BD",
+          "bdRef": "/templates/Template1/bds/Tesla",
+          "l2UnknownUnicast": "flood",
+          "intersiteBumTrafficAllow": true,
+          "optimizeWanBandwidth": true,
+          "l2Stretch": true,
+          "subnets": [
+            {
+              "ip": "10.8.31.1/24",
+              "scope": "private",
+              "shared": false
+            }
+          ],
+          "vrfRef": "/templates/Template1/vrfs/Tesla"
+        }
+      ],
+      "contracts": [
+        {
+          "name": "Tesla",
+          "displayName": "Tesla",
+          "contractRef": "/templates/Template1/contracts/Tesla",
+          "filterRelationships": [
+            {
+              "filterRef": "/templates/Template1/filters/Tesla-Whitelist",
+              "directives": [
+                "none"
+              ]
+            }
+          ],
+          "scope": "context"
+        }
+      ],
+      "filters": [
+        {
+          "name": "Tesla-Whitelist",
+          "displayName": "Tesla-Whitelist",
+          "filterRef": "/templates/Template1/filters/Tesla-Whitelist",
+          "entries": [
+            {
+              "name": "Tesla-Filter",
+              "displayName": "Tesla-Filter",
+              "description": "",
+              "etherType": "ip",
+              "arpFlag": "unspecified",
+              "ipProtocol": "unspecified",
+              "matchOnlyFragments": false,
+              "stateful": false,
+              "sourceFrom": "unspecified",
+              "sourceTo": "unspecified",
+              "destinationFrom": "unspecified",
+              "destinationTo": "unspecified",
+              "tcpSessionRules": [
+                "unspecified"
+              ]
+            }
+          ]
+        }
+      ],
+      "externalEpgs": []
+    }
+  ],
+  "sites": [
+    {
+      "siteId": "5994860e11000029001c5b29",
+      "templateName": "Template1",
+      "anps": [
+        {
+          "anpRef": "/templates/Template1/anps/Tesla-Image-App",
+          "epgs": [
+            {
+              "epgRef": "/templates/Template1/anps/Tesla-Image-App/epgs/Web-Tesla",
+              "domainAssociations": [
+                {
+                  "dn": "uni/vmmp-VMware/dom-MSC-Site2-VMM",
+                  "domainType": "vmmDomain",
+                  "deployImmediacy": "immediate",
+                  "resolutionImmediacy": "immediate",
+                  "vlanEncapMode": "dynamic",
+                  "allowMicroSegmentation": false,
+                  "switchType": "default"
+                }
+              ],
+              "staticPorts": [],
+              "staticLeafs": [],
+              "uSegAttrs": [],
+              "subnets": [],
+              "faults": []
+            },
+            {
+              "epgRef": "/templates/Template1/anps/Tesla-Image-App/epgs/NFS-Tesla",
+              "domainAssociations": [
+                {
+                  "dn": "uni/vmmp-VMware/dom-MSC-Site2-VMM",
+                  "domainType": "vmmDomain",
+                  "deployImmediacy": "immediate",
+                  "resolutionImmediacy": "immediate",
+                  "vlanEncapMode": "dynamic",
+                  "allowMicroSegmentation": false,
+                  "switchType": "default"
+                }
+              ],
+              "staticPorts": [],
+              "staticLeafs": [],
+              "uSegAttrs": [],
+              "subnets": [],
+              "faults": []
+            },
+            {
+              "epgRef": "/templates/Template1/anps/Tesla-Image-App/epgs/DB-Tesla",
+              "domainAssociations": [
+                {
+                  "dn": "uni/vmmp-VMware/dom-MSC-Site2-VMM",
+                  "domainType": "vmmDomain",
+                  "deployImmediacy": "immediate",
+                  "resolutionImmediacy": "immediate",
+                  "vlanEncapMode": "dynamic",
+                  "allowMicroSegmentation": false,
+                  "switchType": "default"
+                }
+              ],
+              "staticPorts": [],
+              "staticLeafs": [],
+              "uSegAttrs": [],
+              "subnets": [],
+              "faults": []
+            },
+            {
+              "epgRef": "/templates/Template1/anps/Tesla-Image-App/epgs/MSite-vMotion",
+              "domainAssociations": [
+                {
+                  "dn": "uni/vmmp-VMware/dom-MSC-Site2-VMM",
+                  "domainType": "vmmDomain",
+                  "deployImmediacy": "immediate",
+                  "resolutionImmediacy": "immediate",
+                  "vlanEncapMode": "dynamic",
+                  "allowMicroSegmentation": false,
+                  "switchType": "default"
+                }
+              ],
+              "staticPorts": [],
+              "staticLeafs": [],
+              "uSegAttrs": [],
+              "subnets": [],
+              "faults": []
+            }
+          ],
+          "faults": []
+        }
+      ],
+      "vrfs": [],
+      "bds": [],
+      "contracts": [],
+      "externalEpgs": []
+    },
+    {
+      "siteId": "599486241100002b007dc9c2",
+      "templateName": "Template1",
+      "anps": [
+        {
+          "anpRef": "/templates/Template1/anps/Tesla-Image-App",
+          "epgs": [
+            {
+              "epgRef": "/templates/Template1/anps/Tesla-Image-App/epgs/Web-Tesla",
+              "domainAssociations": [
+                {
+                  "dn": "uni/vmmp-VMware/dom-MSC-Site-1-VMM",
+                  "domainType": "vmmDomain",
+                  "deployImmediacy": "immediate",
+                  "resolutionImmediacy": "immediate",
+                 "vlanEncapMode": "dynamic",
+                  "allowMicroSegmentation": false,
+                  "switchType": "default"
+                }
+              ],
+              "staticPorts": [],
+              "staticLeafs": [],
+              "uSegAttrs": [],
+              "subnets": [],
+              "faults": []
+            },
+            {
+              "epgRef": "/templates/Template1/anps/Tesla-Image-App/epgs/NFS-Tesla",
+              "domainAssociations": [
+                {
+                  "dn": "uni/vmmp-VMware/dom-MSC-Site-1-VMM",
+                  "domainType": "vmmDomain",
+                  "deployImmediacy": "immediate",
+                  "resolutionImmediacy": "immediate",
+                  "vlanEncapMode": "dynamic",
+                  "allowMicroSegmentation": false,
+                  "switchType": "default"
+                }
+              ],
+              "staticPorts": [],
+              "staticLeafs": [],
+              "uSegAttrs": [],
+              "subnets": [],
+              "faults": []
+            },
+            {
+              "epgRef": "/templates/Template1/anps/Tesla-Image-App/epgs/DB-Tesla",
+              "domainAssociations": [
+                {
+                  "dn": "uni/vmmp-VMware/dom-MSC-Site-1-VMM",
+                 "domainType": "vmmDomain",
+                  "deployImmediacy": "immediate",
+                  "resolutionImmediacy": "immediate",
+                  "vlanEncapMode": "dynamic",
+                  "allowMicroSegmentation": false,
+                  "switchType": "default"
+                }
+              ],
+              "staticPorts": [],
+              "staticLeafs": [],
+              "uSegAttrs": [],
+              "subnets": [],
+              "faults": []
+            },
+            {
+              "epgRef": "/templates/Template1/anps/Tesla-Image-App/epgs/MSite-vMotion",
+              "domainAssociations": [
+                {
+                  "dn": "uni/vmmp-VMware/dom-MSC-Site-1-VMM",
+                  "domainType": "vmmDomain",
+                  "deployImmediacy": "immediate",
+                  "resolutionImmediacy": "immediate",
+                  "vlanEncapMode": "dynamic",
+                  "allowMicroSegmentation": false,
+                  "switchType": "default"
+                }
+              ],
+              "staticPorts": [],
+              "staticLeafs": [],
+              "uSegAttrs": [],
+              "subnets": [],
+              "faults": []
+            }
+          ],
+          "faults": []
+        }
+      ],
+      "vrfs": [],
+      "bds": [],
+      "contracts": [],
+      "externalEpgs": []
+    }
+  ]
+}
+ 
+
+ 
